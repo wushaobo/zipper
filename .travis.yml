@@ -1,0 +1,13 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_script:
+  - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+
+script:
+  - ./build.sh build_image
+  - ./build.sh push_to_registry

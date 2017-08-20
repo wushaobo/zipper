@@ -1,5 +1,7 @@
 FROM debian:jessie
 
+LABEL maintainer="wushaobo.china@gmail.com"
+
 COPY docker/apt_sources/cn.list /etc/apt/sources.list
 RUN apt-get update && \
     apt-get install -y curl telnet vim locales-all

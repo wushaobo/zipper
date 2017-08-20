@@ -4,23 +4,28 @@ set -e
 
 cd "$(dirname $0)"
 
-registry=daocloud.io
-namespace=shaobo_wu
-app_name=zipper
+registry=wushaobo/zipper
+tag_latest=${registry}:latest
 
-MAJOR_VERSION=${MAJOR_VERSION:- 0}
-MINOR_VERSION=${MINOR_VERSION:- ${GO_PIPELINE_LABEL}}
+function push_tag_version () {
+    git_tag=$1
+    tag=${registry}:${git_tag}
+    docker tag ${tag_latest} ${tag}
+    docker push ${tag}
+    docker rmi ${tag} ${tag_latest}
+}
+
+function push_latest_version () {
+    docker push ${tag_latest}
+    docker rmi ${tag_latest}
+}
 
 function push_to_registry () {
-    tag_external=${registry}/${namespace}/${app_name}
-    version=${MAJOR_VERSION}.${MINOR_VERSION}
-
-    tag_version=${tag_external}:${version}
-    tag_latest=${tag_external}:latest
-    docker tag ${tag_latest} ${tag_version}
-    docker push ${tag_version}
-    docker push ${tag_latest}
-    docker rmi ${tag_version}
+    if [ -z "${TRAVIS_TAG}" ]; then
+        push_latest_version
+    else
+        push_tag_version ${TRAVIS_TAG}
+    fi
 }
 
 function build_bin () {
@@ -32,12 +37,11 @@ function build_image () {
     build_bin
 
     docker_file=docker/prod/Dockerfile
-    tag=${registry}/${namespace}/${app_name}
     context_path=.
 
     docker build --force-rm \
         -f ${docker_file} \
-        -t ${tag} \
+        -t ${tag_latest} \
         ${context_path}
 }
 
