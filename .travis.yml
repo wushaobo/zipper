@@ -9,5 +9,5 @@ before_script:
   - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
 
 script:
-  - ./build.sh build_image
-  - ./build.sh push_to_registry
+  - ./build.sh build-image
+  - ./build.sh push-to-registry
