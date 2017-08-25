@@ -11,3 +11,6 @@ before_script:
 script:
   - ./build.sh build-image
   - ./build.sh push-to-registry
+
+notifications:
+  email: false
