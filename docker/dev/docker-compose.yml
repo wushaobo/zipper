@@ -2,7 +2,7 @@ version: '3'
 
 services:
   zipper:
-    image: daocloud.io/shaobo_wu/zipper:latest
+    image: wushaobo/zipper:latest
     command: /opt/zipper/run.sh
     ports:
       - "24080:80"
