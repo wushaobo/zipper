@@ -9,7 +9,7 @@ var (
 	Http = httpConfig{
 		ListenPort: getenv("HTTP_LISTEN_PORT", "80"),
 		AppKey: os.Getenv("HTTP_APP_KEY"),
-		SecureKey: os.Getenv("HTTP_SECURE_KEY"),
+		SecretKey: os.Getenv("HTTP_SECRET_KEY"),
 	}
 
 	Redis = redisConfig{
@@ -22,7 +22,7 @@ var (
 type httpConfig struct {
 	ListenPort string
 	AppKey  string
-	SecureKey  string
+	SecretKey  string
 }
 
 type redisConfig struct {

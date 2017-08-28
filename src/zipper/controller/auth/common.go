@@ -24,8 +24,7 @@ func validateToken(seed string, givenToken string) (err error) {
 }
 
 func buildToken(seed string) string {
-	secret_key := config.Http.SecureKey
-	content := []byte(seed + secret_key)
-
-	return utils.Md5(content)[:20]
+	secret_key := config.Http.SecretKey
+	content := seed + secret_key
+	return utils.Md5([]byte(content))[:20]
 }
