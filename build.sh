@@ -30,7 +30,7 @@ function push_to_registry () {
 
 function build_bin () {
     image=golang:1.8
-    docker run -v ${PWD}:/tmp/zipper -w /tmp/zipper/ ${image} docker/dev/build_bin.sh
+    docker run --rm -v ${PWD}:/tmp/zipper -w /tmp/zipper/ ${image} docker/dev/build_bin.sh
 }
 
 function build_image () {
