@@ -39,10 +39,12 @@ func validateResource(fileInfo FileInfo, fileLength *int64) bool {
 	if fileInfo.IsFolder {
 		return true
 	}
-	resp, err := http.Head(fileInfo.URL)
+
+	resp, err := http.Get(fileInfo.URL)
 	if err != nil || resp.StatusCode != http.StatusOK {
 		return false
 	}
+	defer resp.Body.Close()
 
 	*fileLength, _ = strconv.ParseInt(resp.Header.Get("Content-Length"), 10, 64)
 	return true
