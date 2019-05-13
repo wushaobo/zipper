@@ -6,6 +6,7 @@ cd "$(dirname $0)"
 
 function build_and_run () {
     ./build.sh build-image
+    rm -rf logs
     docker-compose -f docker/dev/docker-compose.yml up --force-recreate zipper
 }
 

@@ -1,14 +1,6 @@
-FROM debian:jessie
+FROM debian:stretch-slim
 
 LABEL maintainer="wushaobo.china@gmail.com"
-
-COPY docker/apt_sources/cn.list /etc/apt/sources.list
-RUN apt-get update && \
-    apt-get install -y curl telnet vim locales-all
-
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
 
 EXPOSE 80
 RUN mkdir -p /var/log/zipper
