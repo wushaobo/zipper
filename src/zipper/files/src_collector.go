@@ -3,6 +3,7 @@ package files
 import (
 	"net/http"
 	"strconv"
+	"fmt"
 )
 
 type ResourcesInfo struct {
@@ -41,9 +42,17 @@ func validateResource(fileInfo FileInfo, fileLength *int64) bool {
 	}
 
 	resp, err := http.Get(fileInfo.URL)
-	if err != nil || resp.StatusCode != http.StatusOK {
+	if err != nil {
+		fmt.Println("err:")
+		fmt.Println(err)
 		return false
 	}
+	if resp.StatusCode != http.StatusOK {
+		fmt.Println("resp.StatusCode:")
+		fmt.Println(resp.StatusCode)
+		return false
+	}
+
 	defer resp.Body.Close()
 
 	*fileLength, _ = strconv.ParseInt(resp.Header.Get("Content-Length"), 10, 64)
