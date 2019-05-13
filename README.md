@@ -81,8 +81,14 @@ Rebuild and run zipper container in foreground.
 
 [The CI of this repo](https://travis-ci.org/wushaobo/zipper) is on travis-ci.org .
 
-It will build docker image with the following command, then push to registry.
+It will build docker image with the following command, 
 
 ```
 ./build.sh build-image
+```
+
+then push to docker registry with the following command,
+
+```
+./build.sh push-to-registry
 ```
